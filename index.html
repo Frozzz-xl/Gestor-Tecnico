@@ -7,12 +7,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <h1>Gestor de Servicios Técnicos</h1>
+      <h1><i class="fa-solid fa-screwdriver-wrench"></i> Gestor de Servicios Técnicos</h1>
     </div>
   </header>
 
@@ -44,37 +43,156 @@
 
     <!-- FORMULARIO -->
     <section class="form-section">
-      <form id="formulario" class="form-grid" autocomplete="off">
-        <input type="text" id="cliente" name="cliente" placeholder="Nombre del cliente" required>
-        <input type="text" id="equipo" name="equipo" placeholder="Tipo de equipo" required>
-        <input type="text" id="descripcion" name="descripcion" placeholder="Descripción del problema" required>
-        <input type="date" id="fecha" name="fecha" required>
-        <button type="submit" class="btn-add"><i class="fa-solid fa-plus"></i> Agregar</button>
+      <form id="formulario" autocomplete="off">
+        <input type="hidden" id="note-id">
+        
+        <!-- Sección 1: Identificación -->
+        <fieldset class="form-group">
+            <legend><i class="fa-solid fa-id-card"></i> Identificación</legend>
+            <div class="form-grid">
+                <div class="input-wrapper">
+                    <label for="solicitante">Solicitante</label>
+                    <input type="text" id="solicitante" name="solicitante" placeholder="Ej. Juan Pérez" required>
+                </div>
+                <div class="input-wrapper">
+                    <label for="departamento">Departamento</label>
+                    <select id="departamento" name="departamento">
+                        <option value="">Seleccione...</option>
+                        <option value="Ventas">Ventas</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="TI">TI</option>
+                        <option value="Recursos Humanos">Recursos Humanos</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Operaciones">Operaciones</option>
+                    </select>
+                </div>
+                <div class="input-wrapper">
+                    <label for="sede">Sede/Ubicación</label>
+                    <input type="text" id="sede" name="sede" placeholder="Ej. Oficina Central - Piso 2">
+                </div>
+                <div class="input-wrapper">
+                    <label for="contacto">Medio de contacto</label>
+                    <select id="contacto" name="contacto">
+                        <option value="Email">Email</option>
+                        <option value="Teléfono">Teléfono</option>
+                        <option value="Teams">Microsoft Teams</option>
+                        <option value="Slack">Slack</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Sección 2: Clasificación -->
+        <fieldset class="form-group">
+            <legend><i class="fa-solid fa-tags"></i> Clasificación</legend>
+            <div class="form-grid">
+                <div class="input-wrapper">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
+                        <option value="Redes">Redes</option>
+                        <option value="Accesos">Accesos</option>
+                    </select>
+                </div>
+                <div class="input-wrapper">
+                    <label for="prioridad">Prioridad</label>
+                    <select id="prioridad" name="prioridad" required>
+                        <option value="Baja">Baja</option>
+                        <option value="Media" selected>Media</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Critica">Crítica</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Sección 3: El Incidente -->
+        <fieldset class="form-group">
+            <legend><i class="fa-solid fa-triangle-exclamation"></i> El Incidente</legend>
+            <div class="form-grid">
+                <div class="input-wrapper full-width">
+                    <label for="asunto">Asunto corto</label>
+                    <input type="text" id="asunto" name="asunto" placeholder="Ej. No puedo imprimir en la impresora del pasillo" required>
+                </div>
+                <div class="input-wrapper full-width">
+                    <label for="descripcion">Descripción detallada</label>
+                    <textarea id="descripcion" name="descripcion" placeholder="Describa qué estaba haciendo cuando ocurrió el problema..." required></textarea>
+                </div>
+                <div class="input-wrapper full-width">
+                    <label for="pasos">Pasos para reproducir</label>
+                    <textarea id="pasos" name="pasos" placeholder="1. Abrir aplicación X&#10;2. Ir al menú Archivo..."></textarea>
+                </div>
+                <div class="input-wrapper full-width">
+                    <label for="mensaje_error">Mensaje de error exacto</label>
+                    <input type="text" id="mensaje_error" name="mensaje_error" placeholder="Ej. 'Error 404: Página no encontrada'">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Sección 4: Entorno y Evidencia -->
+        <fieldset class="form-group">
+            <legend><i class="fa-solid fa-desktop"></i> Entorno y Evidencia</legend>
+            <div class="form-grid">
+                <div class="input-wrapper full-width">
+                    <label for="captura">Adjuntar captura</label>
+                    <input type="file" id="captura" name="captura" accept="image/*">
+                </div>
+                
+                <div class="input-wrapper" id="group-id-activo">
+                    <label for="id_activo">ID del Activo/Dispositivo</label>
+                    <input type="text" id="id_activo" name="id_activo" placeholder="Ej. LP-2023-005 (Etiqueta plateada)">
+                </div>
+
+                <div class="input-wrapper" id="group-navegador-so">
+                    <label for="navegador_so">Navegador/SO</label>
+                    <input type="text" id="navegador_so" name="navegador_so" placeholder="Ej. Chrome v90 en Windows 10">
+                </div>
+                
+                <!-- Fecha oculta (se llena automática) pero guardamos para registro -->
+                <input type="hidden" id="fecha" name="fecha">
+            </div>
+        </fieldset>
+
+        <div class="form-actions full-width" style="margin-top: 1rem;">
+            <button type="submit" class="btn-add" id="btn-submit"><i class="fa-solid fa-paper-plane"></i> Crear Ticket</button>
+            <button type="button" class="btn-cancel" id="btn-cancel" style="display: none;"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+        </div>
       </form>
     </section>
 
-    <section class="search-section">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="🔍 Buscar por cliente, equipo o estado..."
-  />
-</section>
-
+    <!-- FILTROS Y BUSCADOR -->
+    <section class="controls-section">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="pendiente">Pendientes</button>
+        <button class="filter-btn" data-filter="reparada">Reparadas</button>
+        <button class="filter-btn" data-filter="entregado">Entregados</button>
+      </div>
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="🔍 Buscar por cliente, equipo..."
+        />
+      </div>
+    </section>
 
     <!-- CONTENEDOR DE NOTAS -->
     <section id="notas-container" class="notas-container" aria-live="polite">
-      <!-- Notas (cards) se renderizan aquí, en columna -->
+      <!-- Notas (cards) se renderizan aquí -->
     </section>
 
-    <div id="notas-container"></div>
-    <p id="no-result" class="no-result">No se encontraron notas</p>
+    <p id="no-result" class="no-result" style="display: none;">No se encontraron notas</p>
 
   </main>
 
   <footer class="site-footer">
     <p>Hecho por Flavio Maguiña</p>
   </footer>
+
+  <div id="toast-container" class="toast-container"></div>
 
   <script src="script.js"></script>
 </body>

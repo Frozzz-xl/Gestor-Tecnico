@@ -1,0 +1,110 @@
+{
+  "sections": [
+    {
+      "title": "Identificación",
+      "fields": [
+        {
+          "label": "Solicitante",
+          "name": "solicitante",
+          "type": "text",
+          "placeholder": "Ej. Juan Pérez"
+        },
+        {
+          "label": "Departamento",
+          "name": "departamento",
+          "type": "select",
+          "options": ["Ventas", "Marketing", "TI", "Recursos Humanos", "Finanzas", "Operaciones"],
+          "placeholder": "Seleccione su departamento"
+        },
+        {
+          "label": "Sede/Ubicación",
+          "name": "sede",
+          "type": "text",
+          "placeholder": "Ej. Oficina Central - Piso 2"
+        },
+        {
+          "label": "Medio de contacto preferido",
+          "name": "contacto",
+          "type": "select",
+          "options": ["Email", "Teléfono", "Microsoft Teams", "Slack"]
+        }
+      ]
+    },
+    {
+      "title": "Clasificación",
+      "fields": [
+        {
+          "label": "Categoría",
+          "name": "categoria",
+          "type": "select",
+          "options": ["Hardware", "Software", "Redes", "Accesos"],
+          "triggers_logic": true
+        },
+        {
+          "label": "Prioridad",
+          "name": "prioridad",
+          "type": "select",
+          "options": ["Baja", "Media", "Alta", "Crítica"]
+        }
+      ]
+    },
+    {
+      "title": "El Incidente (Detalles)",
+      "fields": [
+        {
+          "label": "Asunto corto",
+          "name": "asunto",
+          "type": "text",
+          "placeholder": "Ej. No puedo imprimir en la impresora del pasillo"
+        },
+        {
+          "label": "Descripción detallada",
+          "name": "descripcion",
+          "type": "textarea",
+          "placeholder": "Describa qué estaba haciendo cuando ocurrió el problema, qué esperaba que sucediera y qué sucedió realmente."
+        },
+        {
+          "label": "Pasos para reproducir el error",
+          "name": "pasos",
+          "type": "textarea",
+          "placeholder": "1. Abrir aplicación X\n2. Ir al menú Archivo\n3. Clic en Guardar"
+        },
+        {
+          "label": "Mensaje de error exacto",
+          "name": "mensaje_error",
+          "type": "text",
+          "placeholder": "Ej. 'Error 404: Página no encontrada' o código 0x8004005"
+        }
+      ]
+    },
+    {
+      "title": "Entorno y Evidencia",
+      "fields": [
+        {
+          "label": "Adjuntar captura",
+          "name": "captura",
+          "type": "file",
+          "accept": "image/*"
+        },
+        {
+          "label": "ID del Activo/Dispositivo",
+          "name": "id_activo",
+          "type": "text",
+          "placeholder": "Ej. LP-2023-005 (Etiqueta plateada en el equipo)",
+          "logic": {
+            "visible_if": { "field": "categoria", "value": "Hardware" }
+          }
+        },
+        {
+          "label": "Navegador/SO",
+          "name": "navegador_so",
+          "type": "text",
+          "placeholder": "Ej. Chrome v90 en Windows 10",
+          "logic": {
+            "visible_if": { "field": "categoria", "values": ["Software", "Accesos", "Redes"] }
+          }
+        }
+      ]
+    }
+  ]
+}
