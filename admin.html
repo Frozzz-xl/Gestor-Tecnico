@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Administración - Gestor de Tickets</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+    <h1><i class="fa-solid fa-user-shield"></i> Panel de Administración</h1>
+    <nav>
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-plus"></i> Nuevo Ticket</a>
+        <a href="#" id="btn-logout" class="nav-link logout"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
+    </nav>
+    </div>
+</header>
+
+<main class="main">
+    <!-- RESUMEN ESTADÍSTICO -->
+    <section class="stats-section" aria-label="Resumen estadístico">
+    <div class="stats-grid">
+        <div class="stat-card">
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">Total</div>
+        </div>
+
+        <div class="stat-card">
+        <div class="stat-value" id="stat-pendiente">0</div>
+        <div class="stat-label">Pendientes</div>
+        </div>
+
+        <div class="stat-card">
+        <div class="stat-value" id="stat-reparada">0</div>
+        <div class="stat-label">Reparadas</div>
+        </div>
+
+        <div class="stat-card">
+        <div class="stat-value" id="stat-entregado">0</div>
+        <div class="stat-label">Entregados</div>
+        </div>
+    </div>
+    </section>
+
+    <!-- FILTROS Y BUSCADOR -->
+    <section class="controls-section">
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="pendiente">Pendientes</button>
+        <button class="filter-btn" data-filter="reparada">Reparadas</button>
+        <button class="filter-btn" data-filter="entregado">Entregados</button>
+    </div>
+    <div class="search-box">
+        <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Buscar por cliente, equipo..."
+        />
+    </div>
+    </section>
+
+    <!-- CONTENEDOR DE NOTAS -->
+    <section id="notas-container" class="notas-container" aria-live="polite">
+    <!-- Notas (cards) se renderizan aquí -->
+    </section>
+
+    <p id="no-result" class="no-result" style="display: none;">No se encontraron tickets</p>
+
+</main>
+
+<footer class="site-footer">
+    <p>Hecho por Flavio Maguiña</p>
+</footer>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
